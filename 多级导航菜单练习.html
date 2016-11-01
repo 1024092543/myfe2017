@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>多级菜单</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul, ol {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+       #menu li{
+           float:left;
+           margin-right: 5px;
+       }
+       #menu .main-menu{
+           background: #cccccc;
+           width: 120px;
+           height: 30px;
+           line-height: 30px;
+           display: block;
+
+       }
+        #menu .sub-menu{
+            background: #eee;
+            display: none;
+            width: 120px;
+        }
+        #menu .sub-menu li{
+            float: none;
+            border-bottom: 1px dotted #000;
+            height: 25px;
+            line-height: 25px;
+        }
+    </style>
+</head>
+<body>
+<ul id="menu">
+    <li>
+        <a href="#" class="main-menu">link1</a>
+        <ul class="sub-menu">
+            <li><a href="#">11</a></li>
+            <li><a href="#">12</a></li>
+            <li><a href="#">13</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="#" class="main-menu">link2</a>
+        <ul class="sub-menu">
+            <li><a href="#">21</a></li>
+            <li><a href="#">22</a></li>
+            <li><a href="#">23</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="#" class="main-menu">link3</a>
+       <ul class="sub-menu">
+            <li><a href="#">31</a></li>
+            <li><a href="#">32</a></li>
+            <li><a href="#">33</a></li>
+        </ul>
+    </li>
+</ul>
+<script>
+    var oMenu = document.getElementById('menu');
+    var aMainMenu = oMenu.getElementsByTagName('a');//oMenu.getElementsByClassName('main-menu');
+    var aSubMenu = oMenu.getElementsByTagName('ul');
+    var count = 0;
+    for(var i=0; i<aMainMenu.length; i++){
+        if(aMainMenu[i].className == 'main-menu'){
+
+            aMainMenu[i].index = count++;//为每一个main-menu对象添加自定义属性
+
+            aMainMenu[i].onmouseover = function(){
+                aSubMenu[  this.index  ].style.display = 'block';
+            };
+
+            aMainMenu[i].onmouseout = function(){
+                aSubMenu[  this.index  ].style.display = 'none';
+            };
+        }
+
+    }
+</script>
+</body>
+</html>
