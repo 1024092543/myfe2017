@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #div1{
+            width: 200px;
+            height: 100px;
+            background: #ff0000;
+            position: absolute;
+            left: 50px;
+        }
+    </style>
+</head>
+<body>
+   <button id="btn">移动</button>
+   <div id="div1" >div</div>
+   <script>
+    var oDiv1 = document.getElementById("div1");
+    var oBtn =document.getElementById("btn");
+    oBtn.onclick = function(){
+        oDiv1.style.left =oDiv.offsetLeft+10+'px';
+    };//内联
+//     setInterval(function(){
+//                 oDiv1.style.left = oDiv1.offsetLeft +10 +'px';
+//             },30);//定时器
+   </script>
+</body>
+</html>
