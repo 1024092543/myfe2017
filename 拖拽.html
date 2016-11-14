@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+        }
+        #div1{
+            width: 200px;
+            height: 200px;
+            background: #ff0000;
+            position: absolute;
+            left: 0;
+            top: 50px;
+        }
+    </style>
+</head>
+<body>
+     hhhhhhhhhhhhhhhhhhhhhhh
+     <div id="div1"></div>
+     <script>
+         var oDiv = document.getElementById('div1');
+         var iDisX = iDisY =0;//定义鼠标到拖拽元素的左边和上边的距离
+         oDiv.onmousedown = function(e){
+             e = e || window.event;
+             iDisX = e.clientX - oDiv.offsetLeft;
+             iDisY = e.clientY - oDiv.offsetTop;
+//             鼠标到拖拽元素的左边和上边的距离 为 鼠标到左（上）边缘的距离
+//             减去 div块跟浏览器左（上）边缘的距离（即鼠标位置变了，div块
+//             位置也跟着变，需要保持鼠标和块的距离不变）
+
+             document.onmousemove = function(e){
+//               在document中加入鼠标移动事件，防止鼠标
+//               划出div块后无效
+                 e =e || window.event;
+                 var iLeft = e.clientX - iDisX;
+                 var iTop = e.clientY - iDisY;
+
+                 if(iLeft <= 10){
+                     iLeft = 0;//div块左外边距小于=20时，设为0
+                 }
+                 if(iLeft >= document.documentElement.clientWidth - oDiv.offsetWidth){
+                     iLeft =  document.documentElement.clientWidth - oDiv.offsetWidth;
+                 }
+                 if(iTop <= 10){
+                     iTop = 0;
+                 }
+                 if(iTop >=  document.documentElement.clientHeight - oDiv.offsetHeight){
+                     iTop = document.documentElement.clientHeight - oDiv.offsetHeight;
+                 }
+                 oDiv.style.left = iLeft + 'px';
+                 oDiv.style.top = iTop + 'px';
+             };
+             document.onmouseup = function(){
+                 document.onmousemove = null ;
+                 document.onmouseup = null ;
+             };
+         };
+     </script>
+</body>
+</html>
