@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>照片墙</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #container{
+            width:680px;
+           margin: 0 auto;
+        }
+        #container img{
+            width: 200px;
+            height: 150px;
+            margin: 10px;
+            float: left;
+        }
+        .c{
+            border: 1px dashed red;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <img src="1.jpg" alt=""/>
+    <img src="2.jpg" alt=""/>
+    <img src="3.jpg" alt=""/>
+    <img src="4.jpg" alt=""/>
+    <img src="5.jpg" alt=""/>
+    <img src="6.jpg" alt=""/>
+    <img src="7.jpg" alt=""/>
+    <img src="8.jpg" alt=""/>
+    <img src="9.jpg" alt=""/>
+</div>
+<script src="jslib.js"></script>
+<script>
+    var oContainer = document.getElementById('container');
+    var aImg = document.getElementsByTagName('img');
+    var iZIndex = 1;
+    var aC = [];
+
+    for(var i=0;i<aImg.length;i++){
+        aImg[i].style.left = aImg[i].offsetLeft + 'px';
+        aImg[i].style.top = aImg[i].offsetTop + 'px';
+        aImg[i].pos = {
+            left: aImg[i].offsetLeft,
+            top: aImg[i].offsetTop
+        };
+    }
+    //1.布局转换
+    for(var i=0;i<aImg.length;i++){
+        aImg[i].style.position = 'absolute';
+        aImg[i].style.margin = 0;
+        drag(aImg[i]);   //2.拖拽元素
+    }
+
+    function drag(elem) {
+        var oN;
+        elem.onmousedown = function (e) {
+               e = e || window.event;
+        var    iDisX = e.clientX - elem.offsetLeft;
+        var    iDisY = e.clientY - elem.offsetTop;
+//             鼠标到拖拽元素的左边和上边的距离 为 鼠标到左（上）边缘的距离
+//             减去 div块跟浏览器左（上）边缘的距离（即鼠标位置变了，div块
+//             位置也跟着变，需要保持鼠标和块的距离不变）
+
+            document.onmousemove = function (e) {
+//              在document中加入鼠标移动事件，防止鼠标
+//              划出div块后无效
+                elem.style.zIndex = iZIndex++;//点谁谁在上
+                e = e || window.event;
+                var iLeft = e.clientX - iDisX;
+                var iTop = e.clientY - iDisY;
+
+                elem.style.left = iLeft + 'px';
+                elem.style.top = iTop + 'px';
+                // 3.碰撞检测
+                for (var i=0; i<aImg.length; i++) {
+                    if (elem == aImg[i]){
+                        continue;
+                    }
+                    aImg[i].className = '';
+                    var cResult = cT(elem, aImg[i]);
+                    if (cResult == true) {
+                        aC.push(aImg[i]);
+//                        aImg[i].className = 'c';
+                    }
+                }//把除了与自己以外碰撞的元素放进aC中
+
+                if(aC.length  > 0){
+                    oN = gN(elem);
+                    oN.className = 'c';
+                    aC = [];
+                }else{
+                    oN= null;
+                }//给获取到的最近的元素加样式
+                return false;
+
+                function cT(elem, target) {//
+                    var iElemL = elem.offsetLeft,
+                            iElemT = elem.offsetTop,
+                            iElemR = iElemL + elem.offsetWidth,
+                            iElemB = iElemT + elem.offsetHeight;
+                    var iTargetL = target.offsetLeft,
+                            iTargetT = target.offsetTop,
+                            iTargetR = iTargetL + target.offsetWidth,
+                            iTargetB = iTargetT + target.offsetHeight;
+                    if (iElemL > iTargetR || iElemR < iTargetL || iElemT > iTargetB || iElemB < iTargetT) {
+                        return false;//没碰上
+                    } else {
+                        return true;//碰上
+                    }
+                }//检测与周围的元素的碰撞
+
+                function gD(elem,target){
+                    var a = elem.offsetLeft - target.offsetLeft;
+                    var b = elem.offsetTop - target.offsetTop;
+                    return Math.sqrt(a*a + b*b);
+                }//获取与碰撞元素的！距离！，以左上点为准
+
+                function gN(elem){
+                    var  Min = 111111;//设大数，再去比较
+                    var  Y = -1;
+                    for (var i=0;i<aC.length;i++){
+                        var gd = gD(elem,aC[i]);
+                        if(Min > gd){ Min=gd; Y=i;}//Y=i为获取最小距离对应的编号
+                    }
+                    return aC[Y];//返回一个元素
+                }//获取最近的元素
+            };
+
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                document.onmouseup = null;
+                //4.交换元素
+                if(oN){
+                    animate(elem, oN.pos);
+                    animate(oN, elem.pos);
+                    var JH = elem.pos;
+                    elem.pos = oN.pos;
+                    oN.pos = JH;
+                    oN.className = '';
+                }else{
+                    animate(elem, elem.pos);
+                }
+                oN = null;
+                aC = [];
+            };//鼠标划出事件
+        };
+    }
+</script>
+</body>
+</html>
