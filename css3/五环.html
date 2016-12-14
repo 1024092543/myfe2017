@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        /*#div1{*/
+            /*width: 0px;*/
+            /*border: solid;*/
+            /*border-color: white;*/
+            /*border-width:100px;*/
+            /*border-left-color: blue;*/
+            /*border-bottom-color: green;*/
+        /*}*/
+        /*#div{*/
+            /*opacity: 0.5;*/
+            /*background: yellow;*/
+            /*border: solid 2px rgb(0,0,50);*/
+            /*width: 200px;*/
+            /*height: 200px;*/
+            /*margin: auto auto;*/
+        /*}*/
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .circle,.circle::after{
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            border-style: solid;
+            border-width: 10px;
+            border-radius: 50%;
+        }
+        .circle::after{
+            top: -10px;
+            left: -10px;
+            content: "";
+        }
+
+        .blue{
+            left: 0;
+            top: 0;
+            border-color: blue;
+        }
+        .blue.circle::after{
+            z-index: 1;
+            border-color: blue;
+            border-bottom-color: transparent;
+        }
+
+        .black{
+            left: 230px;
+            top: 0;
+            border-color: black;
+        }
+        .black.circle::after{
+            z-index: 2;
+            border-color: black;
+            border-bottom-color: transparent;
+        }
+
+        .red{
+            left: 460px;
+            top: 0;
+            border-color: red;
+        }
+        .red.circle::after{
+            z-index: 2;
+            border-color: red;
+            border-left-color: transparent;
+        }
+
+        .yellow{
+            left: 110px;
+            top: 110px;
+            border-color: yellow;
+        }
+        .yellow.circle::after{
+
+            border-color: yellow;
+        }
+
+        .green{
+            left: 340px;
+            top: 110px;
+            border-color: green;
+        }
+        .green.circle::after{
+            border-color: green;
+        }
+
+        #div{
+            position: relative;
+            width: 680px;
+            height: 330px;
+            margin: 0 auto;
+            border: dotted 1px;
+        }
+    </style>
+</head>
+<body>
+    <div id="div">
+        <div class="circle blue"></div>
+        <div class="circle black"></div>
+        <div class="circle red"></div>
+        <div class="circle yellow"></div>
+        <div class="circle green"></div>
+    </div>
+</body>
+</html>
