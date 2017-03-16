@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: #000;
+            perspective: 1000px;
+            /*perspective-origin: 100% 10%;*/
+        }
+
+        #container{
+            /*border: 1px dotted red;*/
+            height: 200px;
+            width: 360px;
+            margin: 300px auto;
+            transform-style: preserve-3d;
+
+        }
+        .cube{
+            position: absolute;
+            width: 360px;
+            height: 200px;
+            background: #ffffff;
+            opacity: 0.6;
+            font-size: 80px;
+            text-align: center;
+            line-height: 200px;
+            border-radius: 5%;
+            border: 1px solid #ffffff;
+        }
+        @keyframes rotate{
+            from{  transform: rotateX(90deg) translateZ(100px);
+                opacity: 1;
+            }
+            to{
+                transform: rotateX(150deg) translateZ(80px) translate(8px,165px);
+                /*opacity: 0;*/
+            }
+        }
+        .one{
+            /*animation: rotate 1s ease infinite;*/
+            -webkit-transform: rotateX(90deg) translateY(100px);
+            -moz-transform: rotateX(90deg) translateZ(100px);
+            -ms-transform: rotateX(90deg) translateZ(100px);
+            -o-transform: rotateX(90deg) translateZ(100px);
+            transform: rotateX(90deg) translateZ(100px);
+            /*transform-origin: bottom;*/
+            /*transform: rotateX(-50deg) translateZ(-200px);*/
+        }
+        .two{
+            width: 200px;
+            transform: rotateY(90deg) translateZ(260px);
+        }
+        .three{
+            width: 200px;
+            transform: rotateY(-90deg) translateZ(100px);
+        }
+        .four{
+            transform: rotateX(-90deg) translateZ(100px);
+        }
+        .five{
+            transform: rotateY(180deg) translateZ(100px);
+        }
+        .six{
+            transform: translateZ(100px);
+        }
+        span{
+            position: absolute;
+            float: left;
+            left: 10px;
+            top: 100px;
+            width: 32px;
+            height: 16px;
+            background: white;
+            cursor: pointer;
+        }
+        .zhi{
+            opacity: 0;
+            transition:  all 0.5s ease;
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: blue;
+            /*opacity: 0.6;*/
+            font-size: 80px;
+            text-align: center;
+            line-height: 200px;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="cube one" id="door"></div>
+        <div class="cube two"></div>
+        <div class="cube three"></div>
+        <div class="cube four"></div>
+        <div class="cube five"></div>
+        <div class="cube six"></div>
+
+        <div class="zhi yi">快</div>
+        <div class="zhi er">乐</div>
+        <div class="zhi san">年</div>
+        <div class="zhi si">新</div>
+    </div>
+    <span id="begin">开始</span>
+    <script>
+        var oSpan = document.getElementById('begin');
+        var oDoor = document.getElementById('door');
+        var aDiv = document.getElementsByClassName('zhi');
+        console.log(aDiv[2]);
+
+        oSpan.onclick = function(){
+//            oDoor.style.animation = "rotate 1s ease forwards";
+            oDoor.style.animation = "rotate 1s ease infinite";
+            for(var j=2; j<aDiv.length; j++){
+                var X = -100*j;
+                aDiv[j].style.transform = "translate(-250px,"+X+"px)";
+                aDiv[j].style.transitionDelay = (aDiv.length-j)*50+"ms";
+                aDiv[j].style.opacity = "0.6";
+            }
+            for(var i=0; i<aDiv.length - 2; i++){
+                var y = 100*i;
+                aDiv[i].style.transform = "translate(450px,"+y+"px)";
+                aDiv[i].style.transitionDelay = (aDiv.length-i)*50+"ms";
+                aDiv[i].style.opacity = "0.6";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        #container{
+            border: 1px dotted red;
+            position: relative;
+            top: 300px;
+            left: 500px;
+            /*margin: 300px auto;*/
+        }
+        img{
+            position: absolute;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            transition:  all 0.5s ease;
+        }
+        #home{
+            /*position: absolute;*/
+            transition: transform 0.8s ease;
+            width: 50px;
+            height: 50px;
+        }
+
+        .large{
+            -webkit-animation: large 1s ease;
+            -o-animation: large 1s ease;
+            animation: large 1s ease;
+        }
+        @keyframes large {
+            from{
+                -webkit-transform: scale(1);
+                -moz-transform: scale(1);
+                -ms-transform: scale(1);
+                -o-transform: scale(1);
+                transform: scale(1);
+            }
+            to{
+                -webkit-transform: scale(1.5);
+                -moz-transform: scale(1.5);
+                -ms-transform: scale(1.5);
+                -o-transform: scale(1.5);
+                transform: scale(1.5); 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+
+        <div id="menu">
+            <img src="close.png" alt="" style=""/>
+            <img src="open.png" alt=""/>
+            <img src="full.png" alt=""/>
+            <img src="prev.png" alt=""/>
+            <img src="refresh.png" alt=""/>
+        </div>
+        <div id="home">
+            <img src="home.png" alt=""/>
+        </div>
+    </div>
+    <script>
+        var oHome = document.getElementById('home');
+        var oMenu = document.getElementById('menu');
+        var aImg =  oMenu.getElementsByTagName('img');
+        var bFlag = false;//false表示打开
+
+        oHome.onclick = function(){
+            if(bFlag){// 合并
+                this.style.transform = "rotate(0deg)";
+                for(var i=0; i<aImg.length; i++){
+                    aImg[i].style.transform = "translate(0,0) "+"rotate(0deg)";
+                    aImg[i].style.transitionDelay = i*50+"ms";
+                }
+            }else{// 打开
+                this.style.transform = "rotate(-360deg)";
+                for(var i=0; i<aImg.length; i++){
+                    var x = -150*Math.cos(22.5*i * Math.PI / 180);
+                    var y = -150*Math.sin(22.5*i * Math.PI / 180);
+                    aImg[i].style.transform = "translate("+ x +"px,"+y+"px)"+" rotate(-360deg)";
+                    aImg[i].style.transitionDelay = (aImg.length - i)*50+"ms";
+                }
+            }
+            bFlag = !bFlag;
+        };
+
+//        var flag = true;
+//        for(var i=0; i<aImg.length; i++){
+//            aImg[i].onclick = function(){
+//                this.style.transform += "scale(1.5)";
+//           };
+//        }
+
+        var current = "";
+        for(var i=0; i<aImg.length; i++){
+           aImg[i].onclick = function(){
+               current = this.style.transform;
+                this.style.transform += "scale(1.5)";
+               this.addEventListener("webkitTransitionEnd",function(){
+                   this.style.transform = current ;
+               });
+           }
+        }
+    </script>
+</body>
+</html>
