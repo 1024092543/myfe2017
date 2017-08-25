@@ -1,0 +1,41 @@
+.dialog-container{
+    /*background: #cccccc;*/
+    position: absolute;
+    top: 30px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.dialog-mask{
+    width: 100%;
+    height: 100%;
+    background: #ccc;
+}
+.dialog-box{
+    position: absolute;
+    width: 400px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -200px;
+    background: white;
+}
+.dialog-title{
+    width: 100%;
+    height: 30px;
+    background: #000;
+    color: white;
+    line-height: 30px;
+}
+.dialog-title-content{
+    float: left;
+}
+.dialog-title-close{
+    float: right;
+    cursor: pointer;
+}
+.dialog-content{
+    width: 100%;
+    height: 270px;
+}

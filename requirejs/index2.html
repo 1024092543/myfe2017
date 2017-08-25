@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div1{
+            width: 200px;
+            height: 200px;
+            background: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn">button</button>
+    <!--<div id="div1"></div>-->
+<script>
+    var oBtn = document.getElementById('btn');
+    //异步
+    oBtn.onclick = function () {
+        var oScript = document.createElement('script');
+        oScript.src = 'hello.js';
+        document.body.appendChild(oScript);
+
+        var oDiv = document.createElement('div');
+        oDiv.id = 'div1';
+        document.body.appendChild(oDiv);
+    }
+
+</script>
+</body>
+</html>
