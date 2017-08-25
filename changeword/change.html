@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <style type="text/css">
+        .common{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="w" class="common">你好啊！我的天啊！</div>
+<div id="m" class="common">请多多指教！</div>
+<div id="hha" style="width: 200px;height: 100px;"></div>
+<script type="text/javascript">
+    var index = 0, inde = 0, count = 0;
+    var oW = document.getElementById("w").innerHTML;
+    var oM = document.getElementById("m").innerHTML;
+    var oH = document.getElementById("hha");
+
+    // function hh(){
+    // 	var type = setInterval(function(){
+    // 		document.title = oW.substring(0,index++);
+    // 		if(index == oW.length + 1){
+    // 			clearInterval(type);
+    // 			index = 0;
+    // 			var ty = setInterval(function(){
+    // 				document.title = oM.substring(0,inde++);if(inde == oM.length + 1){clearInterval(ty);inde = 0; hh;};
+    // 			},300);
+    // 		}
+    // 	},300);
+    // }
+    // setTimeout(hh,2000)
+    setInterval(function(){
+        oH.innerHTML = oW.substring(0,count++)
+        if(count == oW.length){
+            count = 0
+        }
+        console.log(oH.innerHTML);
+    },300)
+    // for(i=0; i<8; i++){
+    // 	oH.innerHTML = oW.substring(0,i)
+    // 	console.log(oH.innerHTML);
+    // }
+</script>
+</body>
+</html>
